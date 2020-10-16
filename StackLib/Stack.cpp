@@ -4,7 +4,7 @@
 template <typename T>
 TStack<T>::TStack(int maxSize) : size(maxSize) // инициализация константы
 {
-	if (maxSize < NULL)
+	if (maxSize < 0)
 	{
 		throw  logic_error("ERROR");
 	}
@@ -19,7 +19,7 @@ inline int TStack<T>::IsEmpty() const
 
 	for (int i = 0; i < size; i++)
 	{
-		if (stackPtr[i] == NULL)
+		if (stackPtr[i] == 0)
 		{
 			continue;
 		}
@@ -35,10 +35,10 @@ inline int TStack<T>::IsEmpty() const
 template <typename T> // контроль переполнения
 inline int TStack<T>::IsFull() const
 {
-	
+
 	for (int i = 0; i < size; i++)
 	{
-		if (stackPtr[i] != NULL)
+		if (stackPtr[i] != 0)
 		{
 			continue;
 		}
