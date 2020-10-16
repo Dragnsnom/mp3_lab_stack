@@ -1,3 +1,4 @@
+#ifndef STACK_H
 #define STACK_H
 
 #include <iostream>
@@ -5,23 +6,38 @@
 
 using namespace std;
 
-const int MaxMemSize = 25;   // максимальный размер пам€ти дл€ стека
-typedef int TELEM;          // тип элемента —ƒ
-typedef TELEM* PTElem;     // тип указател€ на —ƒ
-
-class TStack {
-protected:                                 // пол€
-PTElem pMem;                              // указатель на массив элементов
-int MemSize;                             // размер пам€ти дл€ —ƒ
-int DataCount;                          // количество элементов в —ƒ
-int Hi;                                // индекс вершины стека
-virtual int GetNextIndex (int index); // получить следующий индекс
+template <typename T>
+class TStack
+{
+private:
+	T* stackPtr;                      // указатель на стек
+	const int size;                   // максимальное количество элементов в стеке
+	int num;                          // номер текущего элемента стека
 public:
+	TStack(int = 25);                  // по умолчанию размер стека равен 25 элементам
+	TStack(const TStack<T>&);          // конструктор копировани€
+	~TStack();                         // деструктор
 
- TStack (int Size = MaxMemSize);           //конструктор
- ~TStack();                               //деструктор
- int IsEmpty ( void ) const ;            // контроль пустоты
- int IsFull ( void ) const ;            // контроль переполнени€
- void Put ( const TELEM &Val );        // добавить значение
- virtual TELEM Get ( void ) ;         // извлечь значение
+
+	inline int IsEmpty(void) const; // контроль пустоты
+	inline int IsFull(void) const; // контроль переполнени€
+	inline void put(const T&);     // поместить элемент в вершину стека
+	inline T deleteElem();          // удалить элемент из вершины стека и вернуть его
+	inline const T& Peek(int) const; // n-й элемент от вершины стека
+	inline int getStackSize() const;  // получить размер стека
+	inline T* getPtr() const;         // получить указатель на стек
+	inline int getNum() const;        // получить номер текущего элемента в стеке
+
+	//ƒоп задани€
+	inline int min_elem(); //ѕоиск минимального элемента
+	inline int max_elem(); //ѕоиск максимального элемента
+
+	template <typename T>
+	friend ostream& operator<<(ostream& out, const TStack& st)
+	{
+		for (int ix = st.num - 1; ix >= 0; ix--)
+			cout << st.stackPtr[ix] << endl;
+		return out;
+	}
 };
+#endif
