@@ -6,7 +6,7 @@ before_script:
   - mkdir ../build
   - cd ../build
 script:
-  - cmake ../lab3-stack
+  - cmake ../mp3_lab_stack
   - make -j
   - ls
   - ./test/test_Stack
